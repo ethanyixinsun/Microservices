@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+
+  currency-exchange:
+    image: ethanyixinsun/microservices-currency-exchange-service:0.0.1-SNAPSHOT
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    ports:
+      - "8000:8000"
+    networks:
+      - currency-network
+
+networks:
+  currency-network:
+
