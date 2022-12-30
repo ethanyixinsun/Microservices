@@ -16,6 +16,7 @@ services:
       - service-registry
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://service-registry:8761/eureka
+      SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
 
   currency-conversion:
     image: ethanyixinsun/microservices-currency-conversion-service:0.0.1-SNAPSHOT
@@ -31,6 +32,7 @@ services:
       - service-registry
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://service-registry:8761/eureka
+      SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
 
   api-gateway:
     image: ethanyixinsun/microservices-api-gateway:0.0.1-SNAPSHOT
@@ -46,6 +48,7 @@ services:
       - service-registry
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://service-registry:8761/eureka
+      SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411/
 
   service-registry:
     image: ethanyixinsun/microservices-service-registry:0.0.1-SNAPSHOT
@@ -55,6 +58,17 @@ services:
           memory: 2g
     ports:
       - "8761:8761"
+    networks:
+      - currency-network
+
+  zipkin-server:
+    image: openzipkin/zipkin:2.23
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+    ports:
+      - "9411:9411"
     networks:
       - currency-network
 
