@@ -17,6 +17,21 @@ services:
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://service-registry:8761/eureka
 
+  currency-conversion:
+    image: ethanyixinsun/microservices-currency-conversion-service:0.0.1-SNAPSHOT
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    ports:
+      - "8100:8100"
+    networks:
+      - currency-network
+    depends_on:
+      - service-registry
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://service-registry:8761/eureka
+
   service-registry:
     image: ethanyixinsun/microservices-service-registry:0.0.1-SNAPSHOT
     deploy:
