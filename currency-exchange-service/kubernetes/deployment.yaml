@@ -26,6 +26,14 @@ spec:
         - image: ethanyixinsun/microservices-currency-exchange-service:0.0.1-SNAPSHOT
           imagePullPolicy: IfNotPresent
           name: microservices-currency-exchange-service
+          readinessProbe:
+            httpGet:
+              port: 8000
+              path: /actuator/health/readiness
+          livenessProbe:
+            httpGet:
+              port: 8000
+              path: /actuator/health/liveness
       restartPolicy: Always
 ---
 apiVersion: v1
